@@ -6030,6 +6030,78 @@ public final class Settings {
          */
 
         /**
+         * Color temperature of the display during the day
+         * @hide
+         */
+        public static final String DISPLAY_TEMPERATURE_DAY = "display_temperature_day";
+
+        /**
+         * Color temperature of the display at night
+         * @hide
+         */
+        public static final String DISPLAY_TEMPERATURE_NIGHT = "display_temperature_night";
+
+        /**
+         * Display color temperature adjustment mode, one of DAY (default), NIGHT, or AUTO.
+         * @hide
+         */
+        public static final String DISPLAY_TEMPERATURE_MODE = "display_temperature_mode";
+
+        /**
+         * Automatic outdoor mode
+         * 0 = 0ff, 1 = on
+         * @hide
+         */
+        public static final String DISPLAY_AUTO_OUTDOOR_MODE = "display_auto_outdoor_mode";
+
+        /**
+         * Reader mode
+         * 0 = 0ff, 1 = on
+         * @hide
+         */
+        public static final String DISPLAY_READING_MODE = "display_reading_mode";
+
+        /**
+         * Use display power saving features such as CABC or CABL
+         * 0 = 0ff, 1 = on
+         * @hide
+         */
+        public static final String DISPLAY_CABC = "display_low_power";
+
+        /**
+         * Use color enhancement feature of display
+         * 0 = 0ff, 1 = on
+         * @hide
+         */
+        public static final String DISPLAY_COLOR_ENHANCE = "display_color_enhance";
+
+        /**
+         * Use auto contrast optimization feature of display
+         * 0 = 0ff, 1 = on
+         * @hide
+         */
+        public static final String DISPLAY_AUTO_CONTRAST = "display_auto_contrast";
+
+        /**
+         * Manual display color adjustments (RGB values as floats, separated by spaces)
+         * @hide
+         */
+        public static final String DISPLAY_COLOR_ADJUSTMENT = "display_color_adjustment";
+
+        /**
+         * The current custom picture adjustment values as a delimited string
+         * @hide
+         */
+        public static final String DISPLAY_PICTURE_ADJUSTMENT =
+                "display_picture_adjustment";
+
+        /**
+         * Did we tell about how they can stop breaking their eyes?
+         * @hide
+         */
+        public static final String LIVE_DISPLAY_HINTED = "live_display_hinted";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
@@ -6189,8 +6261,40 @@ public final class Settings {
             PRIVATE_SETTINGS.add(TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK);
             PRIVATE_SETTINGS.add(HIGH_TOUCH_SENSITIVITY_ENABLE);
             PRIVATE_SETTINGS.add(HIGH_TOUCH_POLLING_RATE_ENABLE);
+<<<<<<< HEAD
             PRIVATE_SETTINGS.add(FORCE_FULLSCREEN_CUTOUT_APPS);
             PRIVATE_SETTINGS.add(SWIPE_TO_SCREENSHOT);
+=======
+            PRIVATE_SETTINGS.add(NAV_BAR_COMPACT_LAYOUT);
+            PRIVATE_SETTINGS.add(VOLUME_WAKE_SCREEN);
+            PRIVATE_SETTINGS.add(VOLBTN_MUSIC_CONTROLS);
+            PRIVATE_SETTINGS.add(TORCH_LONG_PRESS_POWER_GESTURE);
+            PRIVATE_SETTINGS.add(TORCH_LONG_PRESS_POWER_TIMEOUT);
+            PRIVATE_SETTINGS.add(VOLUME_ANSWER_CALL);
+            PRIVATE_SETTINGS.add(LOCKSCREEN_PIN_SCRAMBLE_LAYOUT);
+            PRIVATE_SETTINGS.add(CLICK_PARTIAL_SCREENSHOT);
+            PRIVATE_SETTINGS.add(STATUS_BAR_CLOCK);
+            PRIVATE_SETTINGS.add(STATUS_BAR_AM_PM);
+            PRIVATE_SETTINGS.add(STATUS_BAR_BATTERY_STYLE);
+            PRIVATE_SETTINGS.add(STATUS_BAR_SHOW_BATTERY_PERCENT);
+            PRIVATE_SETTINGS.add(SWAP_VOLUME_KEYS_ON_ROTATION);
+            PRIVATE_SETTINGS.add(INCREASING_RING);
+            PRIVATE_SETTINGS.add(INCREASING_RING_START_VOLUME);
+            PRIVATE_SETTINGS.add(INCREASING_RING_RAMP_UP_TIME);
+            PRIVATE_SETTINGS.add(INCALL_FEEDBACK_VIBRATE);
+            PRIVATE_SETTINGS.add(AUTO_BRIGHTNESS_ONE_SHOT);
+            PRIVATE_SETTINGS.add(DISPLAY_TEMPERATURE_DAY);
+            PRIVATE_SETTINGS.add(DISPLAY_TEMPERATURE_NIGHT);
+            PRIVATE_SETTINGS.add(DISPLAY_TEMPERATURE_MODE);
+            PRIVATE_SETTINGS.add(DISPLAY_AUTO_OUTDOOR_MODE);
+            PRIVATE_SETTINGS.add(DISPLAY_READING_MODE);
+            PRIVATE_SETTINGS.add(DISPLAY_CABC);
+            PRIVATE_SETTINGS.add(DISPLAY_COLOR_ENHANCE);
+            PRIVATE_SETTINGS.add(DISPLAY_AUTO_CONTRAST);
+            PRIVATE_SETTINGS.add(DISPLAY_COLOR_ADJUSTMENT);
+            PRIVATE_SETTINGS.add(DISPLAY_PICTURE_ADJUSTMENT);
+            PRIVATE_SETTINGS.add(LIVE_DISPLAY_HINTED);
+>>>>>>> 1380bddc8d00 (Introduce LiveDisplay from Lineage)
         }
 
         /**
