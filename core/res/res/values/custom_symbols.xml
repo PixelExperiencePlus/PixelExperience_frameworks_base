@@ -78,6 +78,10 @@
     <!-- Enforce DisplayModeDirector to select user preferred resolution -->
     <java-symbol type="bool" name="config_forceToUseSelectedResolution" />
 
+    <!-- Alert slider -->
+    <java-symbol type="bool" name="config_hasAlertSlider" />
+    <java-symbol type="integer" name="config_alertSliderLocation" />
+
     <!-- Power menu -->
     <java-symbol type="array" name="config_restartActionsList" />
 
