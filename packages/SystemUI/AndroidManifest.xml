@@ -211,6 +211,9 @@
     <!-- Access Quick Access Wallet cards -->
     <uses-permission android:name="android.permission.BIND_QUICK_ACCESS_WALLET_SERVICE" />
 
+    <!-- DataSwitch tile -->
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
+
     <!-- Adding Controls to SystemUI -->
     <uses-permission android:name="android.permission.BIND_CONTROLS" />
     <!-- Check foreground controls applications -->
