@@ -36,4 +36,5 @@
     <string name="accessibility_quick_settings_reading_mode_changed_off">已關閉閱讀模式</string>
     <string name="quick_settings_anti_flicker">防閃爍</string>
     <string name="screenshot_delete_label">刪除</string>
+    <string name="qs_data_switch_label">切換數據卡</string>
 </resources>

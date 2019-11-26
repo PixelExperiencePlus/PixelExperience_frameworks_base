@@ -70,6 +70,9 @@
     <!-- Anti flicker QS tile -->
     <string name="quick_settings_anti_flicker">Anti flicker</string>
 
+    <!-- DataSwitch Tile -->
+    <string name="qs_data_switch_label">Switch data card</string>
+
     <!-- Status bar network traffic monitor strings -->
     <string name="kilobitspersecond_short" translatable="false">kb/s</string>
     <string name="megabitspersecond_short" translatable="false">Mb/s</string>
