@@ -87,6 +87,9 @@
     <!-- Display color inversion availability -->
     <java-symbol type="bool" name="config_displayInversionAvailable" />
 
+    <!-- These are system packages exempted from privacy indicator -->
+    <java-symbol type="array" name="config_indicatorExemptedPackageNames" />
+
     <!-- Build properties from a GMS certified device -->
     <java-symbol type="array" name="config_certifiedBuildProperties" />
 </resources>
