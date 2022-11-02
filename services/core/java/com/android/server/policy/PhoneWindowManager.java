@@ -2059,9 +2059,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case SLEEP:
                 mPowerManager.goToSleep(SystemClock.uptimeMillis());
                 break;
-            case SPLIT_SCREEN:
-                toggleSplitScreen();
-                break;
             case SCREENSHOT:
                 interceptScreenshotChord(SCREENSHOT_KEY_OTHER, 0 /*pressDelay*/);
                 break;
@@ -4490,13 +4487,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
         if (statusbar != null) {
             statusbar.toggleRecentApps();
-        }
-    }
-
-    private void toggleSplitScreen() {
-        StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
-        if (statusbar != null) {
-            statusbar.toggleSplitScreen();
         }
     }
 
