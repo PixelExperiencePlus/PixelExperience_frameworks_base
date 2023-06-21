@@ -135,6 +135,8 @@ import com.android.systemui.wmshell.BubblesManager;
 import com.android.systemui.R;
 import com.android.wm.shell.bubbles.Bubbles;
 
+import com.android.systemui.custom.CustomQSModule;
+
 import dagger.Binds;
 import dagger.BindsOptionalOf;
 import dagger.Module;
@@ -181,6 +183,7 @@ import javax.inject.Named;
             GarbageMonitorModule.class,
             KeyboardModule.class,
             LetterboxModule.class,
+            CustomQSModule.class,
             KeyguardBlueprintModule.class,
             LogModule.class,
             MediaProjectionModule.class,
