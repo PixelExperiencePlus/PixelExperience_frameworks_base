@@ -54,8 +54,7 @@ public class GamesPropsUtils {
 
         propsToChange.put("MI13P", createMI13PProps());
         packagesToChange.put("MI13P", new String[]{
-                "com.levelinfinite.sgameGlobal",
-                "com.tencent.tmgp.sgame"
+                "com.levelinfinite.sgameGlobal"
         });
 
         propsToChange.put("OP8P", createOP8PProps());
@@ -75,8 +74,7 @@ public class GamesPropsUtils {
         propsToChange.put("OP9P", createOP9PProps());
         packagesToChange.put("OP9P", new String[]{
                 "com.epicgames.fortnite",
-                "com.epicgames.portal",
-                "com.tencent.lolm"
+                "com.epicgames.portal"
         });
 
         propsToChange.put("ROG3", createROG3Props());
@@ -90,6 +88,12 @@ public class GamesPropsUtils {
         packagesToChange.put("ROG6", new String[]{
                 "com.activision.callofduty.shooter",
                 "com.madfingergames.legends"
+        });
+
+        propsToChange.put("X40", createX40Props());
+        packagesToChange.put("X40", new String[]{
+                "com.tencent.tmgp.sgame",
+                "com.tencent.lolm"
         });
 
         propsToChange.put("XP5", createXP5Props());
@@ -161,6 +165,14 @@ public class GamesPropsUtils {
         props.put("BRAND", "asus");
         props.put("MANUFACTURER", "asus");
         props.put("MODEL", "ASUS_AI2201");
+        return props;
+    }
+
+    private static Map<String, Object> createX40Props() {
+        Map<String, Object> props = new HashMap<>();
+        props.put("BRAND", "motorola");
+        props.put("MANUFACTURER", "motorola");
+        props.put("MODEL", "XT2301-5");
         return props;
     }
 
