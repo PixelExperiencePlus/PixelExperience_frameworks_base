@@ -23,6 +23,7 @@
 package com.android.internal.util.custom;
 
 import android.app.ActivityManager;
+import android.app.ActivityTaskManager;
 import android.app.Application;
 import android.app.TaskStackListener;
 import android.content.Context;
@@ -185,6 +186,85 @@ public class PixelPropsUtils {
             customGoogleCameraPackages.contains(packageName);
     }
 
+    private static boolean shouldTryToCertifyDevice() {
+        if (!sIsGms) return false;
+
+        final String processName = Application.getProcessName();
+        if (!processName.toLowerCase().contains("unstable")
+                && !processName.toLowerCase().contains("chimera")
+                && !processName.toLowerCase().contains("pixelmigrate")
+                && !processName.toLowerCase().contains("instrumentation")) {
+            return false;
+        }
+
+        final boolean[] shouldCertify = {true};
+
+        setPropValue("TIME", System.currentTimeMillis());
+
+        final boolean was = isGmsAddAccountActivityOnTop();
+        final String reason = "GmsAddAccountActivityOnTop";
+        if (!was) {
+            spoofBuildGms();
+        }
+        dlog("Skip spoofing build for GMS, because " + reason + "!");
+        TaskStackListener taskStackListener = new TaskStackListener() {
+            @Override
+            public void onTaskStackChanged() {
+                final boolean isNow = isGmsAddAccountActivityOnTop();
+                if (isNow ^ was) {
+                    dlog(String.format("%s changed: isNow=%b, was=%b, killing myself!", reason, isNow, was));
+                    shouldCertify[0] = false;
+                }
+            }
+        };
+        try {
+            ActivityTaskManager.getService().registerTaskStackListener(taskStackListener);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to register task stack listener!", e);
+            spoofBuildGms();
+        }
+        if (shouldCertify[0]) {
+            try {
+                ActivityTaskManager.getService().unregisterTaskStackListener(taskStackListener); // this will be registered on next query
+            } catch (Exception e) {}
+        }
+        return shouldCertify[0];
+    }
+
+    private static void spoofBuildGms() {
+        String[] sCertifiedProps = {
+            SystemProperties.get("persist.sys.pihooks.product_name", ""),
+            SystemProperties.get("persist.sys.pihooks.product_device", ""),
+            SystemProperties.get("persist.sys.pihooks.manufacturer", ""),
+            SystemProperties.get("persist.sys.pihooks.brand", ""),
+            SystemProperties.get("persist.sys.pihooks.product_model", ""),
+            SystemProperties.get("persist.sys.pihooks.build_fingerprint", ""),
+            SystemProperties.get("persist.sys.pihooks.security_patch", ""),
+            SystemProperties.get("persist.sys.pihooks.first_api_level", ""),
+            SystemProperties.get("persist.sys.pihooks.build_id", ""),
+            SystemProperties.get("persist.sys.pihooks.build_type", ""),
+            SystemProperties.get("persist.sys.pihooks.build_tags", "")
+        };
+
+        if (sCertifiedProps == null || sCertifiedProps.length == 0) return;
+        // Alter model name and fingerprint to avoid hardware attestation enforcement
+        setPropValue("PRODUCT", sCertifiedProps[0].isEmpty() ? getDeviceName(sCertifiedProps[4]) : sCertifiedProps[0]);
+        setPropValue("DEVICE", sCertifiedProps[1].isEmpty() ? getDeviceName(sCertifiedProps[4]) : sCertifiedProps[1]);
+        setPropValue("MANUFACTURER", sCertifiedProps[2]);
+        setPropValue("BRAND", sCertifiedProps[3]);
+        setPropValue("MODEL", sCertifiedProps[4]);
+        setPropValue("FINGERPRINT", sCertifiedProps[5]);
+        if (!sCertifiedProps[6].isEmpty()) {
+            setPropValue("SECURITY_PATCH", sCertifiedProps[6]);
+        }
+        if (!sCertifiedProps[7].isEmpty() && sCertifiedProps[7].matches("\\d+")) {
+            setPropValue("DEVICE_INITIAL_SDK_INT", Integer.parseInt(sCertifiedProps[7]));
+        }
+        setPropValue("ID", sCertifiedProps[8].isEmpty() ? getBuildID(sCertifiedProps[4]) : sCertifiedProps[8]);
+        setPropValue("TYPE", sCertifiedProps[9].isEmpty() ? "user" : sCertifiedProps[9]);
+        setPropValue("TAGS", sCertifiedProps[10].isEmpty() ? "release-keys" : sCertifiedProps[10]);
+    }
+
     public static void setProps(Context context) {
         if (context == null) return;
 
@@ -221,6 +301,9 @@ public class PixelPropsUtils {
         sIsFinsky = packageName.equals("com.android.vending");
         sIsSetupWizard = packageName.equals("com.google.android.setupwizard");
 
+        if (shouldTryToCertifyDevice()) {
+            return;
+        }
         if (packagesToKeep.contains(packageName)
             || packagesToKeep.contains(processName)) {
             return;
@@ -255,7 +338,6 @@ public class PixelPropsUtils {
                 || processName.toLowerCase().contains("learning")
                 || processName.toLowerCase().contains("search")
                 || processName.toLowerCase().contains("persistent"))) {
-                setPropValue("TIME", System.currentTimeMillis());
                 propsToChange = propsToChangePixel5a;
             }
             // Allow process spoofing for GoogleCamera packages
@@ -338,6 +420,18 @@ public class PixelPropsUtils {
         }
     }
 
+    private static boolean isGmsAddAccountActivityOnTop() {
+        try {
+            final ActivityTaskManager.RootTaskInfo focusedTask =
+                    ActivityTaskManager.getService().getFocusedRootTaskInfo();
+            return focusedTask != null && focusedTask.topActivity != null
+                    && focusedTask.topActivity.equals(GMS_ADD_ACCOUNT_ACTIVITY);
+        } catch (Exception e) {
+            Log.e(TAG, "Unable to get top activity!", e);
+        }
+        return false;
+    }
+
     public static boolean shouldBypassTaskPermission(Context context) {
         // GMS doesn't have MANAGE_ACTIVITY_TASKS permission
         final int callingUid = Binder.getCallingUid();
@@ -354,7 +448,11 @@ public class PixelPropsUtils {
 
     public static void onEngineGetCertificateChain() {
         // Check stack for SafetyNet or Play Integrity
-        if ((isCallerSafetyNet() || sIsFinsky) && !sIsSetupWizard) {
+        if (sIsSetupWizard || !shouldTryToCertifyDevice()) {
+            Process.killProcess(Process.myPid());
+            return;
+        }
+        if (isCallerSafetyNet() || sIsFinsky) {
             dlog("Blocked key attestation sIsGms=" + sIsGms + " sIsFinsky=" + sIsFinsky);
             throw new UnsupportedOperationException();
         }
