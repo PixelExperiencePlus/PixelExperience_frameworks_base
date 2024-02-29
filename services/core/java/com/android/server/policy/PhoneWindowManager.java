@@ -5344,7 +5344,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (isWakeKey) {
-            wakeUpFromWakeKey(event, event.getKeyCode() == KeyEvent.KEYCODE_WAKEUP);
+            wakeUpFromWakeKey(event);
         }
 
         // If the key event is targeted to a specific display, then the user is interacting with
@@ -5946,12 +5946,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     private void wakeUpFromWakeKey(KeyEvent event) {
-        wakeUpFromWakeKey(event, false);
-    }
-
-    private void wakeUpFromWakeKey(KeyEvent event, boolean withProximity) {
         if (wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey,
-                PowerManager.WAKE_REASON_WAKE_KEY, "android.policy:KEY", withProximity)) {
+                PowerManager.WAKE_REASON_WAKE_KEY, "android.policy:KEY")) {
             // Start HOME with "reason" extra if sleeping for more than mWakeUpToLastStateTimeout
             if (shouldWakeUpWithHomeIntent() && event.getKeyCode() == KEYCODE_HOME) {
                 startDockOrHome(DEFAULT_DISPLAY, /*fromHomeKey*/ true, /*wakenFromDreams*/ true,
@@ -5962,11 +5958,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode, @WakeReason int reason,
             String details) {
-        return wakeUp(wakeTime, wakeInTheaterMode, reason, details, false);
-    }
-
-    private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode, @WakeReason int reason,
-            String details, boolean withProximityCheck) {
         final boolean theaterModeEnabled = isTheaterModeEnabled();
         if (!wakeInTheaterMode && theaterModeEnabled) {
             return false;
@@ -5977,12 +5968,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Global.THEATER_MODE_ON, 0);
         }
 
-        if (withProximityCheck) {
-            mPowerManager.wakeUpWithProximityCheck(wakeTime, reason, details);
-        } else {
-            mPowerManager.wakeUp(wakeTime, reason, details);
-        }
-
+        mPowerManager.wakeUp(wakeTime, reason, details);
         return true;
     }
 
