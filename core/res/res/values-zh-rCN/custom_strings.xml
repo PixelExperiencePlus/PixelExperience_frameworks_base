@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Health interface -->
+    <string name="charging_control_notification_channel">充电控制</string>
+    <string name="charging_control_notification_title">充电控制</string>
+    <string name="charging_control_notification_cancel_once">取消</string>
+    <string name="charging_control_notification_content_limit">电量将冲至 %1$d%%</string>
+    <string name="charging_control_notification_content_limit_reached">电量已冲至 %1$d%%</string>
+    <string name="charging_control_notification_content_target">电量将在 %1$s 后完成充电</string>
+    <string name="charging_control_notification_content_target_reached">充电已完成</string>
+
+    <!-- Face unlock -->
+    <string name="face_unlock_disabled_idle">面部解锁因不活跃被禁用</string>
+
+    <!-- PowerOffAlarmService -->
+    <string name="notification_channel_poweroff_alarm">关机闹钟</string>
+    <string name="poweroff_alarm_title">关机闹钟设置</string>
+    <string name="poweroff_alarm_body">检测到一个闹钟。你可以关闭手机 ，\它会在截止日期前2分钟开机。</string>
+</resources>
