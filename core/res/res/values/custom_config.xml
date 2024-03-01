@@ -209,5 +209,13 @@
         <item>Build.SECURITY_PATCH</item>
         <item>Build.ID</item>
       -->
+        <item>F30</item>
+        <item>HS6735MT</item>
+        <item>Hisense</item>
+        <item>Hisense</item>
+        <item>Hisense F30</item>
+        <item>Hisense/F30/HS6735MT:6.0/MRA58K/L1228.6.01.01:user/release-keys</item>
+        <item>2016-02-01</item>
+        <item>MRA58K</item>
     </string-array>
 </resources>
