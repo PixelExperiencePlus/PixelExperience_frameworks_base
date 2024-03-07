@@ -93,14 +93,14 @@ class AppInfoProvider(private val packageInfo: PackageInfo) {
         if ((packageInfo.packageName == null)
             && (packageInfo.versionName == null)) return;
         Divider()
-            if ((packageInfo.packageName != null)) {
-                Box(modifier = Modifier.padding(SettingsDimension.itemPadding)) {
-                    SettingsBody(stringResource(R.string.package_name_text, packageInfo.packageName))
-                }
-            }
             if ((packageInfo.versionName != null)) {
                 Box(modifier = Modifier.padding(SettingsDimension.itemPadding)) {
                     SettingsBody(stringResource(R.string.version_text, packageInfo.versionNameBidiWrapped))
+                }
+            }
+            if ((packageInfo.packageName != null)) {
+                Box(modifier = Modifier.padding(SettingsDimension.itemPadding)) {
+                    SettingsBody(stringResource(R.string.package_name_text, packageInfo.packageName))
                 }
             }
     }
