@@ -52,17 +52,17 @@ public class PixelPropsUtils {
 
     // Packages to Spoof as Pixel 8 Pro
     private static final String[] packagesToChangePixel8Pro = {
+            "com.android.chrome",
             "com.android.vending",
             "com.google.android.apps.customization.pixel",
             "com.google.android.apps.emojiwallpaper",
             "com.google.android.apps.privacy.wildlife",
-            "com.google.android.apps.subscriptions.red",
             "com.google.android.apps.wallpaper",
             "com.google.android.apps.wallpaper.pixel",
             "com.google.android.googlequicksearchbox",
             "com.google.android.wallpaper.effects",
             "com.google.pixel.livewallpaper",
-            "com.nhs.online.nhsonline",
+            "com.nhs.online.nhsonline"
     };
 
     // Packages to Spoof as Pixel 5a
@@ -73,9 +73,6 @@ public class PixelPropsUtils {
 
     // Extra packages to Spoof (as Pixel 5a)
     private static final String[] extraPackagesToChange = {
-            "com.android.chrome",
-            "com.breel.wallpapers20",
-            "com.nhs.online.nhsonline",
             "com.nothing.smartcenter"
     };
 
@@ -86,12 +83,15 @@ public class PixelPropsUtils {
             "com.google.android.apps.pixelmigrate",
             "com.google.android.apps.recorder",
             "com.google.android.apps.restore",
+            "com.google.android.apps.subscriptions.red",
             "com.google.android.apps.tachyon",
             "com.google.android.apps.tycho",
             "com.google.android.apps.wearables.maestro.companion",
             "com.google.android.apps.youtube.kids",
             "com.google.android.apps.youtube.music",
             "com.google.android.as",
+            "com.google.android.backup",
+            "com.google.android.backuptransport",
             "com.google.android.dialer",
             "com.google.android.euicc",
             "com.google.android.setupwizard",
